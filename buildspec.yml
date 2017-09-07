@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Build started on `date`
+      - pip install virtualenv
+  pre_build:
+      - virtualenv env
+      - source env/bin/activate
+      - pip install -r requirements.txt
+      - cp src/switch.py env/switch.py
+  build:
+    commands:
+      - cd env
+      - python switch.py <lots of args> / alt run tests
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - switch.py
