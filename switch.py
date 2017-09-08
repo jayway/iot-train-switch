@@ -25,9 +25,8 @@ class ShadowCallback(object):
         use_sidetrack = payload_dict["state"]["use_sidetrack"]
         servo_pos = self.servo_min if use_sidetrack else self.servo_max
         self.pwm.set_pwm(self.servo_channel, 0, servo_pos)
-        delta_msg = json.dumps(payload_dict["state"])
-        new_payload = '{"state":{"reported":' + delta_msg + '}}'
-        self.instance.shadowUpdate(new_payload, None, 5)
+        response = json.dumps({"state":{"reported":payload_dict["state"]}})
+        self.instance.shadowUpdate(response, None, 5)
 
 
 def main(endpoint, root_ca_path, cert_path, key_path, thing_name, servo_channel, servo_freq, servo_min, servo_max):
