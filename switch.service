@@ -1,0 +1,15 @@
+[Unit]
+Description=Lego switch service
+After=network.target
+
+[Service]
+Type=simple
+User={{ my_user }}
+Group={{ my_group }}
+EnvironmentFile=/etc/conf.d/switch
+WorkingDirectory={{ venv_home }}
+ExecStart={{ venv_home }}/bin/python {{ venv_home }}/switch.py -e ${ENDPOINT} -r ${ROOT_CA_PATH} -c ${CERT_PATH} -k ${KEY_PATH} -n ${THING_NAME} -s ${SERVO_CHANNEL} -f ${SERVO_FREQ} -m ${SERVO_MIN} -x ${SERVO_MAX}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
